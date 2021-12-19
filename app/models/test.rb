@@ -1,6 +1,5 @@
 class Test < ApplicationRecord
-  def self.sort(categories)
-    mas=[]
-    mas << Test.where(category: categories).take!
+  def self.sort(category)
+    Test.joins('JOIN categories on tests.category_id=categories.id').where(categories: {title: category }).order(:title, :desc).pluck(:title)
   end
 end
