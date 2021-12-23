@@ -4,7 +4,6 @@ class Test < ApplicationRecord
   belongs_to :result
 
   has_many :questions, dependent: :destroy
-  has_many :results, dependent: :destroy
   has_many :users, through: :results
 
   def self.all_category_tests(category_title)
