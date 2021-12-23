@@ -5,6 +5,9 @@ class Test < ApplicationRecord
   belongs_to :author, class_name: 'User', foreign_key: 'author_id'
 
   def self.sort(category)
-    Test.joins('JOIN categories on tests.category_id=categories.id').where(categories: { title: category }).order(:title, :desc).pluck(:title)
+    Test.joins('JOIN categories on tests.category_id=categories.id')
+        .where(categories: { title: category })
+        .order(:title, :desc)
+        .pluck(:title)
   end
 end
