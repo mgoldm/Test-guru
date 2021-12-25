@@ -8,7 +8,7 @@ class Question < ApplicationRecord
 
   private
   def quantity?
-    errors.add(:answers) if answers.count>=4
+    errors.add(:answers) if answers.count>=4 or answers.count<1
   end
 
 end
