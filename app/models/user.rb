@@ -5,9 +5,7 @@ class User < ApplicationRecord
   has_many :tests, through: :results
   has_many :tests, through: :results
 
-
   validates :name, presence: true
   validates :email, presence: true
-
 
 end
