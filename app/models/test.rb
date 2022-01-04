@@ -7,8 +7,7 @@ class Test < ApplicationRecord
   has_many :users, through: :results
 
   validates :title, presence: true, uniqueness: true
-  validates :level, numericality: { only_integer: true }, allow_nil: true, if: :smaller_than_zero?, presence: true
-  validate :validate_max_level, on: :create
+  validates :level, numericality: { only_integer: true, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10 }, allow_nil: true, uniqueness: true
 
   scope :user_tests, -> (level) { where(level: level) }
   scope :all_category, -> { category.order(title: :desc) }
@@ -17,16 +16,9 @@ class Test < ApplicationRecord
   scope :hard, -> { where level: 5..Float::INFINITY }
   scope :all_category_tests, -> (category_title) { joins(:category)
                                                      .where(categories: { title: category_title })
-                                                     .order(title: :desc)
-                                                     .pluck(:title) }
+                                                     .order(title: :desc) }
 
-  private
-
-  def validate_max_level
-    errors.add(:level) if level.to_i > 10
-  end
-
-  def smaller_than_zero?
-    errors.add(:level) if level.to_i<0
+  def self.list_all_category_test(category)
+    all_category_tests(category).pluck(:title)
   end
 end
