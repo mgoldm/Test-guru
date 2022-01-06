@@ -3,9 +3,10 @@ class Answer < ApplicationRecord
 
   validates :title, presence: true
   validate :check_quantity_of_answers, on: :create
-  validate :check_quantity_of_answers, on: :update
 
   scope :correct, -> { where(correct: true) }
+
+  private
 
   def check_quantity_of_answers
     if question.answers.count >= 4

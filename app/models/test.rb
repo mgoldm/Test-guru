@@ -6,11 +6,10 @@ class Test < ApplicationRecord
   has_many :results, dependent: :destroy
   has_many :users, through: :results
 
-  validates :title, presence: true, uniqueness: true
+  validates :title, presence: true, uniqueness: { scope: :level }
   validates :level, numericality: { only_integer: true, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10 }, allow_nil: true, uniqueness: true
 
   scope :user_tests, -> (level) { where(level: level) }
-  scope :all_category, -> { category.order(title: :desc) }
   scope :easy, -> { where(level: 0..1) }
   scope :medium, -> { where level: 2..4 }
   scope :hard, -> { where level: 5..Float::INFINITY }
