@@ -1,30 +1,32 @@
 class QuestionsController < ApplicationController
 
   before_action :find_questions
-  skip_before_action :find_questions, only: %i[destroy]
 
-  rescue_from ActionController::UrlGenerationError, with: :rescue_with_question_not_found
+  rescue_from ActiveRecord::RecordNotFound , with: :rescue_with_question_not_found
 
   def index
   end
 
   def show
-    @current_question = @list_of_questions[params[:id].to_i - 1]
+    @question = Question.find(params[:id])
   end
 
   def new
-
   end
 
   def create
-    question = Question.create(question_params)
-    render plain: question.inspect
+    @question = Question.create(question_params)
+    if @question.save
+      redirect_to @question
+    else
+      redirect_to new_test_question_path
+    end
+
   end
 
   def destroy
-    @current_question = Question.find(params[:id])
-    @current_question.destroy
-
+    @question = Question.find(params[:id])
+    @question.destroy
     redirect_to root_path
   end
 
@@ -35,7 +37,7 @@ class QuestionsController < ApplicationController
   end
 
   def find_questions
-    @list_of_questions = Question.where("test_id= ?", params[:test_id])
+    @questions_of_test = Question.where("test_id= ?", params[:test_id])
   end
 
   def question_params

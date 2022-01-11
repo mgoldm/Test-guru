@@ -1,25 +1,20 @@
 class TestsController < ApplicationController
 
+  before_action :find_test, only: %i[show]
+
   def index
     @tests = Test.all
   end
 
   def show
-    @tests = Test.find(params[:id])
     render plain: @tests.inspect
   end
 
-  def start
-    redirect_to root_path
-  end
-
   def new
-
   end
 
   def create
     test = Test.create(test_params)
-
     render plain: test.inspect
 
   end
@@ -27,6 +22,11 @@ class TestsController < ApplicationController
   private
 
   def test_params
-    params.require(:test).permit(:title, :level)
+    params.require(:test).permit(:title, :level, :category_id, :author_id)
   end
+
+  def find_test
+    @tests = Test.find(params[:id])
+  end
+
 end
