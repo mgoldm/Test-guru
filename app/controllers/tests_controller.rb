@@ -13,8 +13,11 @@ class TestsController < ApplicationController
 
   def create
     test = Test.create(test_params)
-    render plain: test.inspect
-
+    if test.save
+      render plain: test.inspect
+    else
+      redirect_to new_test_path
+    end
   end
 
   private
