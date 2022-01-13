@@ -1,5 +1,4 @@
 class TestsController < ApplicationController
-
   def index
     @tests = Test.all
   end
@@ -8,8 +7,7 @@ class TestsController < ApplicationController
     render plain: @tests.inspect
   end
 
-  def new
-  end
+  def new;end
 
   def create
     test = Test.new(test_params)
