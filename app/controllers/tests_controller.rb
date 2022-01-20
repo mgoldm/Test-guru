@@ -1,21 +1,42 @@
 class TestsController < ApplicationController
+  before_action :find_test, only: %i[show update edit]
+
   def index
     @tests = Test.all
   end
 
   def show
-    render plain: @tests.inspect
   end
 
-  def new;end
+  def new
+    @test = Test.new
+  end
+
+  def edit; end
 
   def create
-    test = Test.new(test_params)
-    if test.save
-      render plain: test.inspect
+    @test = Test.new(test_params)
+
+    if @test.save
+      redirect_to @test
     else
-      redirect_to new_test_path
+      render :new
     end
+  end
+
+  def update
+    if @test.update(test_params)
+      redirect_to @test
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @test = Test.find(params[:id])
+
+    @test.destroy
+    redirect_to tests_path
   end
 
   private
@@ -25,6 +46,6 @@ class TestsController < ApplicationController
   end
 
   def find_test
-    @tests = Test.find(params[:id])
+    @test = Test.find(params[:id])
   end
 end
