@@ -1,0 +1,8 @@
+<h1>Вопросы теста "<%= @test.title %>"</h1>
+<tr>
+  <td>
+    <% @questions.each do |question| %>
+      <ul><%= link_to "#{question.title}", question_path(question) %></ul>
+    <% end %></td>
+  <td><%= link_to 'Back', tests_path %></td>
+</tr>
