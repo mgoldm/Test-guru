@@ -9,12 +9,11 @@ module QuestionsHelper
   end
 
   def current_year
-    time = Time.new
-    time.year
+    Date.current.year
   end
 
-  def github_url(author, repo)
-    link = "https://github.com/#{author}/#{repo}"
-    link
+  def github_url(author: , repo: , title:)
+    link_to "#{title}", "https://github.com/#{author}/#{repo}"
+
   end
 end
