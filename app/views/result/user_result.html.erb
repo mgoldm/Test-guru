@@ -1,0 +1,10 @@
+<h1> The Ruby Test was completed</h1>
+
+
+<%if check_quality(@result, @test)>=0.85 %>
+  <p>Тест пройден на<a style="color: green"> <%= check_quality(@result, @test) %></a>%</p>
+<%else %>
+  <p>Тест пройден на<a style="color: red"> <%= check_quality(@result, @test)%></a>%</p>
+<%end %>
+
+<p><%=link_to 'Back', root_path %></p>
