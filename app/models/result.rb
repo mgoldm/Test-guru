@@ -16,11 +16,6 @@ class Result < ApplicationRecord
     save!
   end
 
-  def question_counter
-    @counter ||= 0
-    @counter+=1
-  end
-
   private
 
   def correct_answer?(answer_ids)
@@ -40,7 +35,7 @@ class Result < ApplicationRecord
   end
 
   def before_validation_set_next_question
-    question_counter
+
     self.current_question = next_question
   end
 end

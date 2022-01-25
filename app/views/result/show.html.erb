@@ -2,7 +2,7 @@
 
 <b>
   <p><%= @result.current_question.title %></p>
-  <%= @result.question_counter%> из <%=@test.questions.count %> вопросов
+  <%= question_counter(@result, @test)%> из <%=@test.questions.count %> вопросов
 </b>
 
 <%= form_with url: result_path(@result), local: true, method: :put do |form| %>
