@@ -16,18 +16,20 @@ class Result < ApplicationRecord
     save!
   end
 
-  def question_counter(result)
-    list_questions=[]
-    test.questions.each do |question|
-      list_questions<< question
-    end
-    list_questions.index(Question.find(result.current_question_id)) + 1
+  def current_question_number
+
+    test.questions.order(:id).where('id < ?', current_question.id).size + 1
+
+  end
+
+  def check_quality(result)
+    quality = (result.correct_questions / test.questions.count.to_f) * 100
   end
 
   private
 
   def correct_answer?(answer_ids)
-    correct_answers.ids.sort == answer_ids.map(&:to_i).sort
+    correct_answers.ids.sort == answer_ids.map(&:to_i).sort if  answer_ids != nil
   end
 
   def correct_answers
@@ -43,7 +45,6 @@ class Result < ApplicationRecord
   end
 
   def before_validation_set_next_question
-
     self.current_question = next_question
   end
 end

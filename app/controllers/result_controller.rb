@@ -3,16 +3,11 @@ class ResultController < ApplicationController
   before_action :set_result, only: %i[show update user_result]
   before_action :set_test, only: %i[user_result show update]
 
-  def show
+  def show; end
 
-  end
-
-  def user_result
-
-  end
+  def user_result; end
 
   def update
-
     @result.accept!(params[:answer_ids])
 
     if @result.completed?
