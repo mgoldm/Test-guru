@@ -16,6 +16,14 @@ class Result < ApplicationRecord
     save!
   end
 
+  def question_counter(result)
+    list_questions=[]
+    test.questions.each do |question|
+      list_questions<< question
+    end
+    list_questions.index(Question.find(result.current_question_id)) + 1
+  end
+
   private
 
   def correct_answer?(answer_ids)
