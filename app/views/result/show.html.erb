@@ -1,9 +1,8 @@
 <h1>Pass the <%= @result.test.title %> Test</h1>
 
 <b>
-  <%=question_counter(counter=0) %> из <%=@test.questions.count %> вопросов
   <p><%= @result.current_question.title %></p>
-
+  <%= @result.question_counter%> из <%=@test.questions.count %> вопросов
 </b>
 
 <%= form_with url: result_path(@result), local: true, method: :put do |form| %>
