@@ -1,5 +1,11 @@
 <tr>
   <td><%= @question.title %></td>
+  <h2>Answers</h2>
+  <% link_to 'New Answer', new_question_answer_path(@question) %>
+  <ol>
+    <%= render @question.answers %>
+  </ol>
+
   <td><%= link_to 'Edit', edit_question_path(@question) %></td>
   <td><%= link_to "Destroy", question_path(@question),
                   method: :delete,
