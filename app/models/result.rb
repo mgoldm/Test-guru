@@ -23,13 +23,13 @@ class Result < ApplicationRecord
   end
 
   def check_quality(result)
-    quality = (result.correct_questions / test.questions.count.to_f) * 100
+   (result.correct_questions / test.questions.count.to_f) * 100
   end
 
   private
 
   def correct_answer?(answer_ids)
-    correct_answers.ids.sort == answer_ids.map(&:to_i).sort if  answer_ids != nil
+    correct_answers.ids.sort == answer_ids.to_a.map(&:to_i).sort
   end
 
   def correct_answers
