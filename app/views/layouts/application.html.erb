@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>TestGuru</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>TestGuru</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-  <body>
-    <%= yield %>
-  </body>
+<body>
+<% if logged_in? %>
+  <p class="nav user">
+    <%= link_to "Welcome, #{ current_user.email}  Guru", root_path %></p>
+  <p class="nav user"><%= link_to 'Log out', logout_path %></p>
+<% else %>
+  <p class="nav user"><%= link_to 'Log in', logout_path %> <%= link_to 'Registration', signup_path %> </p>
+<% end %>
+
+<%= yield %>
+</body>
 </html>
