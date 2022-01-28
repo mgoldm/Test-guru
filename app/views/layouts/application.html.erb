@@ -14,9 +14,14 @@
 <% if logged_in? %>
   <p class="nav user">
     <%= link_to "Welcome, #{ current_user.email}  Guru", root_path %></p>
-  <p class="nav user"><%= link_to 'Log out', logout_path %></p>
+  <p class="nav user"><%= link_to "Log out", session_path(session[:user_id]),
+                                  method: :delete,
+                                  data: { confirm: "Do you want to log out" } %></p>
+
+
+
 <% else %>
-  <p class="nav user"><%= link_to 'Log in', logout_path %> <%= link_to 'Registration', signup_path %> </p>
+  <p class="nav user"><%= link_to 'Log in', login_path %> <%= link_to 'Registration', signup_path %> </p>
 <% end %>
 
 <%= yield %>
