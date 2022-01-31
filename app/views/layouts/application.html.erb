@@ -17,9 +17,6 @@
   <p class="nav user"><%= link_to "Log out", session_path(session[:user_id]),
                                   method: :delete,
                                   data: { confirm: "Do you want to log out" } %></p>
-
-
-
 <% else %>
   <p class="nav user"><%= link_to 'Log in', login_path %> <%= link_to 'Registration', signup_path %> </p>
 <% end %>
