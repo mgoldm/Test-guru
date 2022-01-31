@@ -1,5 +1,7 @@
 class TestsController < ApplicationController
-  before_action :find_test, only: %i[show update edit start]
+
+  before_action :find_test, only: %i[show update edit start destroy]
+  before_action :authenticate_user!
 
   def index
     @tests = Test.all
@@ -37,9 +39,8 @@ class TestsController < ApplicationController
   end
 
   def start
-    @user = User.first
-    @user.tests.push(@test)
-    redirect_to @user.result(@test)
+    current_user.tests.push(@test)
+    redirect_to current_user.result(@test)
   end
 
   private
