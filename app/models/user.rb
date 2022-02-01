@@ -1,6 +1,12 @@
-require 'digest/sha1'
-
 class User < ApplicationRecord
+
+  devise :database_authenticatable,
+         :registerable,
+         :recoverable,
+         :rememberable,
+         :trackable,
+         :confirmable,
+         :validatable
 
   has_many :create_tests, class_name: 'Test', foreign_key: 'author_id', dependent: :destroy
   has_many :results, dependent: :destroy
@@ -11,8 +17,6 @@ class User < ApplicationRecord
   def user_tests(level)
     tests.where(level: level)
   end
-
-  has_secure_password
 
   def result(test)
     results.order(id: :desc).find_by(test_id: test.id)
