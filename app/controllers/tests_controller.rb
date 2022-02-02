@@ -1,6 +1,5 @@
 class TestsController < ApplicationController
 
-  before_action :find_test, only: %i[start]
   before_action :authenticate_user!
 
   def index
@@ -8,13 +7,8 @@ class TestsController < ApplicationController
   end
 
   def start
+    @test = Test.find(params[:id])
     current_user.tests.push(@test)
     redirect_to current_user.result(@test)
-  end
-
-  private
-
-  def find_test
-    @test = Test.find(params[:id])
   end
 end
