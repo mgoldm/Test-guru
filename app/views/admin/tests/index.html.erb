@@ -1,0 +1,14 @@
+<h1>Тесты</h1>
+
+<%=link_to 'New test', new_admin_test_path %>
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Level</th>
+    <th colspan="3">Actions</th>
+    <th>Number of Questions</th>
+  </tr>
+  <%= render @tests %>
+</table>
+
+<%= render 'shared/footer' %>
