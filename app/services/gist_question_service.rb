@@ -1,5 +1,5 @@
 class GistQuestionService
-  ACCESS_TOKEN = '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'
+  ACCESS_TOKEN = Rails.application.credentials.github[:access_token]
   def initialize (question, user, client = new_client)
     @question = question
     @test = @question.test
