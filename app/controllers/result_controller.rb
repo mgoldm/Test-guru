@@ -19,18 +19,6 @@ class ResultController < ApplicationController
     end
   end
 
-  def gist
-    responce = GistQuestionService.new(@result.current_question, current_user)
-    result = responce.call
-    flash_options = if responce.exist?(result)
-                      { notice: t("#{result.url}") }
-                    else
-                      { alert: t('result.gists.create.failure') }
-                    end
-
-    redirect_to @result, flash_options
-  end
-
   private
 
   def set_result
