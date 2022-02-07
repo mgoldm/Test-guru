@@ -1,14 +1,14 @@
 class GistQuestionService
   ACCESS_TOKEN = Rails.application.credentials.github[:github_access_token]
 
+  def self.success?(result)
+    result.url.present?
+  end
+
   def initialize (question, client = octokit_client)
     @question = question
     @test = @question.test
     @client = client
-  end
-
-  def success?
-    result.url.present?
   end
 
   def call

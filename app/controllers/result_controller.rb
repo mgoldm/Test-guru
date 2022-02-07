@@ -1,8 +1,8 @@
 class ResultController < ApplicationController
 
   before_action :authenticate_user!
-  before_action :set_result, only: %i[show update user_result gist]
-  before_action :set_test, only: %i[user_result show update gist]
+  before_action :set_result, only: %i[show update user_result]
+  before_action :set_test, only: %i[user_result show update]
 
   def show; end
 
