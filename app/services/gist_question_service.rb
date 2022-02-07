@@ -1,5 +1,5 @@
 class GistQuestionService
-  ACCESS_TOKEN = 'Rails.application.credentials.github[:github_access_token]'
+  ACCESS_TOKEN = Rails.application.credentials.github[:github_access_token]
 
   def initialize (question, client = octokit_client)
     @question = question
