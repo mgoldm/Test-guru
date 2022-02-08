@@ -1,5 +1,6 @@
 class GistQuestionService
-  ACCESS_TOKEN =Rails.application.credentials.github[:github_access_token]
+  ACCESS_TOKEN = Rails.application.credentials.github[:github_access_token]
+
   Result = Struct.new(:responce) do
     def success?
       responce.url.present?
