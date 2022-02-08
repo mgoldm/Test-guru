@@ -1,8 +1,13 @@
 class GistQuestionService
-  ACCESS_TOKEN = Rails.application.credentials.github[:github_access_token]
+  ACCESS_TOKEN =Rails.application.credentials.github[:github_access_token]
+  Result = Struct.new(:responce) do
+    def success?
+      responce.url.present?
+    end
 
-  def self.success?(result)
-    result.url.present?
+    def url
+      responce.url
+    end
   end
 
   def initialize (question, client = octokit_client)
@@ -12,7 +17,7 @@ class GistQuestionService
   end
 
   def call
-    @client.create_gist(gist_params)
+    Result.new(@client.create_gist(gist_params))
   end
 
   private

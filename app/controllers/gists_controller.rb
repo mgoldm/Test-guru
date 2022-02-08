@@ -3,7 +3,7 @@ class GistsController < ApplicationController
     @result = current_user.results.last
     result = GistQuestionService.new(@result.current_question).call
 
-    if GistQuestionService.success?(result)
+    if result.success?
       Gist.create!(url: result.url, question_id: @result.current_question.id, user_id: current_user.id)
       flash[:notice] = result.url
     else
