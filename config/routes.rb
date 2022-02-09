@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   root to: 'tests#index'
 
+  resources :gists, only: :create
+
   resources :tests, only: :index do
     member do
       post :start
@@ -19,6 +21,8 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
+    get '/gists', to: "gists#index"
+
     resources :tests do
       resources :questions, shallow: true, except: :index do
         resources :answers, shallow: true

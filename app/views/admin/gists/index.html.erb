@@ -1,0 +1,13 @@
+<h1>Gists</h1>
+
+<table>
+  <tr>
+    <th>url</th>
+    <th>User email</th>
+    <th>Question body</th>
+  </tr>
+  <%= render @gists %>
+</table>
+
+<p><%=link_to 'Back', admin_tests_path %></p>
+<%= render 'shared/footer' %>
