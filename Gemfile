@@ -30,6 +30,10 @@ gem 'bootsnap', '>= 1.4.4', require: false
 
 gem "octokit"
 
+gem 'jquery-rails'
+gem 'bootstrap', '~>4.0.0'
+gem 'octicons_helper'
+
 gem 'devise', '~> 4.0'
 
 group :development, :test do
