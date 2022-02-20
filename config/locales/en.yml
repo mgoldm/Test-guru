@@ -152,3 +152,11 @@ en:
         success: "Gist was created successfully: %{gist_link}"
         failure: "An error occurred while saving gist"
       description: "Gist for question of test "
+  admin:
+    tests:
+      create:
+        success: "Test was created successfully"
+      index:
+        header: "Available tests"
+      form_inline:
+        submit: "Ok"
