@@ -1,5 +1,9 @@
 <h1>Pass the <%= @result.test.title %> Test</h1>
 
+<div class="progress">
+  <%= content_tag :div, nil, class: 'progress-bar', data: { progress: 100 * (@result.current_question_number - 1) / @result.test.questions.count } %>
+</div>
+
 <b>
   <p><%= @result.current_question.title %></p>
   <%= @result.current_question_number %> из <%= @test.questions.count %> вопросов
@@ -13,6 +17,6 @@
     </p>
   <% end %>
 
-  <p><%=link_to "Gist Question", gists_path, method: :post %></p>
+  <p><%= link_to "Gist Question", gists_path, method: :post %></p>
   <p><%= form.submit 'Next' %></p>
 <% end %>
