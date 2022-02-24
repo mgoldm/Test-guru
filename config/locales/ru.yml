@@ -160,3 +160,5 @@ ru:
         header: "Доступные тесты"
       form_inline:
         submit: "Ок"
+  user:
+    header: "Ваши значки"

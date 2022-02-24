@@ -160,3 +160,5 @@ en:
         header: "Available tests"
       form_inline:
         submit: "Ok"
+  badges:
+    header: "Your badges"

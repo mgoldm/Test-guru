@@ -1,0 +1,13 @@
+<h1>User badges</h1>
+<%=link_to 'New badge', new_admin_badge_path %>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Url</th>
+    <th>Action</th>
+  </tr>
+  <%= render @badges %>
+</table>
+
+<%= render 'shared/footer' %>

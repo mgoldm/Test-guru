@@ -6,7 +6,9 @@ class ResultController < ApplicationController
 
   def show; end
 
-  def user_result; end
+  def user_result
+    @badges=Badge.all
+  end
 
   def update
     @result.accept!(params[:answer_ids])

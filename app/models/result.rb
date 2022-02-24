@@ -16,6 +16,18 @@ class Result < ApplicationRecord
     save!
   end
 
+  def check_rules(result, badges)
+    badges.each do |badge|
+      if badge.category_rule == result.user.tests.where(category_id: result.test.category).distinct.count
+        give_badge(result, badge)
+      elsif badge.level_rule == result.user.tests.where(level: result.test.level).distinct.count
+        give_badge(result, badge)
+      elsif badge.test_rule == result.test and result.user.results.where(test_id: result.test_id).count == 1
+        give_badge(result, badge)
+      end
+    end
+  end
+
   def current_question_number
 
     test.questions.order(:id).where('id < ?', current_question.id).size + 1
@@ -23,10 +35,16 @@ class Result < ApplicationRecord
   end
 
   def check_quality(result)
-   (result.correct_questions / test.questions.count.to_f) * 100
+    (result.correct_questions / test.questions.count.to_f) * 100
   end
 
   private
+
+  def give_badge(result, badge)
+    unless result.user.badges.include?(badge)
+      result.user.badges.push(badge)
+    end
+  end
 
   def correct_answer?(answer_ids)
     correct_answers.ids.sort == answer_ids.to_a.map(&:to_i).sort

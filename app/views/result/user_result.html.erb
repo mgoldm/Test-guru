@@ -1,9 +1,14 @@
 <h1> The Ruby Test was completed</h1>
 
-<%if @result.check_quality(@result)>=0.85 %>
+<% if @result.check_quality(@result) >= 0.85 %>
+  <% if @result.check_rules(@result, @badges) %>
+    <% flash[:notice] = "Поздравляю, вам выдан значок " %>
+    <p><%= octicon "#{@result.user.badges.last.file_name}", class: 'test success hide'%></p>
+  <% end %>
   <p>Тест пройден на<a style="color: green"> <%= @result.check_quality(@result) %></a>%</p>
-<%else %>
-  <p>Тест пройден на<a style="color: red"> <%= @result.check_quality(@result)%></a>%</p>
-<%end %>
 
-<p><%=link_to 'Back', root_path %></p>
+<% else %>
+  <p>Тест пройден на<a style="color: red"> <%= @result.check_quality(@result) %></a>%</p>
+<% end %>
+
+<p><%= link_to 'Back', root_path %></p>

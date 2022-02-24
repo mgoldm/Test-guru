@@ -1,0 +1,30 @@
+<%= form_with model: [:admin, @badge], local: true do |form| %>
+  <%= render 'shared/errors', resource: @badge %>
+
+  <ul>
+    <%= form.label :title %><br>
+    <%= form.text_field :title, id: :badge_title %>
+  </ul>
+
+  <ul><p>Название брать с https://github.com/primer/octicons/tree/main/icons </p>
+    <%= form.label :file_name %><br>
+    <%= form.text_field :file_name, id: :badge_file_name %>
+  </ul>
+
+  <ul>
+    <%= form.label :category_rule %><br>
+    <%= form.collection_select :category_rule, Category.all, :id, :title, prompt: true %>
+  </ul>
+
+  <ul> <p>Установите значение -1, если не нужно использовать </p>
+    <%= form.label :level_rule  %><br>
+    <%= form.number_field :level_rule, id: :badge_level_rule %>
+  </ul>
+
+  <ul>
+    <%= form.label :test_rule %><br>
+    <%= form.collection_select :test_rule, Test.all, :id, :title, prompt: true %>
+  </ul>
+
+  <p><%= form.submit %></p>
+<% end %>
