@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_22_071335) do
+ActiveRecord::Schema.define(version: 2022_02_24_122437) do
 
   create_table "answers", force: :cascade do |t|
     t.string "title", null: false
@@ -24,9 +24,9 @@ ActiveRecord::Schema.define(version: 2022_02_22_071335) do
   create_table "badges", force: :cascade do |t|
     t.string "title", null: false
     t.string "file_name", null: false
-    t.integer "category_rule"
-    t.integer "level_rule"
-    t.integer "test_rule"
+    t.string "rule_type", null: false
+    t.string "type_title", null: false
+    t.integer "param", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -65,6 +65,12 @@ ActiveRecord::Schema.define(version: 2022_02_22_071335) do
     t.index ["current_question_id"], name: "index_results_on_current_question_id"
     t.index ["test_id"], name: "index_results_on_test_id"
     t.index ["user_id"], name: "index_results_on_user_id"
+  end
+
+  create_table "rules", force: :cascade do |t|
+    t.string "rule_type", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "tests", force: :cascade do |t|

@@ -1,6 +1,6 @@
 <%= form_with model: [:admin, @badge], local: true do |form| %>
   <%= render 'shared/errors', resource: @badge %>
-
+<div class="select">
   <ul>
     <%= form.label :title %><br>
     <%= form.text_field :title, id: :badge_title %>
@@ -11,20 +11,25 @@
     <%= form.text_field :file_name, id: :badge_file_name %>
   </ul>
 
-  <ul>
-    <%= form.label :category_rule %><br>
-    <%= form.collection_select :category_rule, Category.all, :id, :title, prompt: true %>
+  <ul class=" rule">
+    <%= form.label :rule_type %><br>
+    <%= form.collection_select :rule_type, Rule.all, :rule_type, :rule_type, prompt: true %>
   </ul>
 
-  <ul> <p>Установите значение -1, если не нужно использовать </p>
-    <%= form.label :level_rule  %><br>
-    <%= form.number_field :level_rule, id: :badge_level_rule %>
+  <ul class=" category ">
+    <%= form.label :Category %><br>
+    <%= form.collection_select :type_title, Category.all, :id, :title, prompt: true %>
   </ul>
 
-  <ul>
-    <%= form.label :test_rule %><br>
-    <%= form.collection_select :test_rule, Test.all, :id, :title, prompt: true %>
+  <ul class=" level">
+    <%= form.label :level %><br>
+    <%= form.number_field :type_title, id: :test_level %>
   </ul>
 
+  <ul class="first_test">
+    <%= form.label :test %><br>
+    <%= form.collection_select :param, Test.all, :id, :title, prompt: true %>
+  </ul>
+</div>
   <p><%= form.submit %></p>
 <% end %>

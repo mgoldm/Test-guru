@@ -4,10 +4,19 @@ class ResultController < ApplicationController
   before_action :set_result, only: %i[show update user_result]
   before_action :set_test, only: %i[user_result show update]
 
+  SUCCESS_SCORE = 0.85
+
   def show; end
 
   def user_result
-    @badges=Badge.all
+    @badges = Badge.all
+
+    new_badge = BadgeService.new(@result, @badges).check_rules
+    if new_badge.success?
+      flash[:notice] = "Поздравляю, вы получили новый значок"
+    else
+      flash[:alert] = "Значок не был получен"
+    end
   end
 
   def update

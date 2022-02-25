@@ -8,5 +8,13 @@
   <%= render @badges %>
 </table>
 
+<table>
+  <h2>Незаработанные награды</h2>
+  <tr>
+    <th>Title</th>
+    <th>Url</th>
+  </tr>
+<%=render@hide_badges %>
+</table>
 
 <%= render 'shared/footer' %>

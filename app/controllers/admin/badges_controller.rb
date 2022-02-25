@@ -1,17 +1,22 @@
 class Admin::BadgesController < Admin::BaseController
-
   def index
     @badges = Badge.all
   end
 
   def new
     @badge = Badge.new
+    @type = ['Category', 'Level', 'First test']
   end
 
   def create
     @badge = Badge.new(badge_params)
-    @badge.category_rule = Test.where(category_id: @badge.category_rule).count
-    @badge.level_rule = Test.where(level: @badge.level_rule).count
+
+    if @badge.type_title.nil?
+      @badge.type_title = @badge.param
+      set_param_badge
+    else
+      set_param_badge
+    end
 
     if @badge.save
       redirect_to admin_badges_path
@@ -28,7 +33,17 @@ class Admin::BadgesController < Admin::BaseController
 
   private
 
+  def set_param_badge
+    if @badge.rule_type == 'Category'
+      @badge.param = Test.where(category_id: @badge.type_title).count
+    elsif @badge.rule_type == 'Level'
+      @badge.param = Test.where(level: @badge.type_title).count
+    else
+      @badge.param = Test.where(id: @badge.type_title).count
+    end
+  end
+
   def badge_params
-    params.require(:badge).permit(:title, :file_name, :category_rule, :level_rule, :test_rule)
+    params.require(:badge).permit(:title, :file_name, :rule_type, :type_title, :param)
   end
 end
