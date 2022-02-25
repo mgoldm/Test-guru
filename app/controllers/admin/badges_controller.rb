@@ -5,7 +5,6 @@ class Admin::BadgesController < Admin::BaseController
 
   def new
     @badge = Badge.new
-    @type = ['Category', 'Level', 'First test']
   end
 
   def create

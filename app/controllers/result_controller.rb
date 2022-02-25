@@ -9,13 +9,13 @@ class ResultController < ApplicationController
   def show; end
 
   def user_result
-    @badges = Badge.all
+    if @result.successful?(@result)
+      @badges = Badge.all
 
-    new_badge = BadgeService.new(@result, @badges).check_rules
-    if new_badge.success?
-      flash[:notice] = "Поздравляю, вы получили новый значок"
-    else
-      flash[:alert] = "Значок не был получен"
+      new_badge = BadgeService.new(@result, @badges).check_rules
+      if new_badge.success?
+        flash[:notice] = "Поздравляю, вы получили новый значок"
+      end
     end
   end
 

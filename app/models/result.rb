@@ -4,6 +4,8 @@ class Result < ApplicationRecord
   belongs_to :current_question, class_name: 'Question', optional: true
   before_validation :before_validation_set_next_question
 
+  SUCCESS_RATIO=0.85
+
   def completed?
     current_question.nil?
   end
@@ -14,6 +16,10 @@ class Result < ApplicationRecord
     end
 
     save!
+  end
+
+  def successful?(result)
+    check_quality(result)>= SUCCESS_RATIO
   end
 
   def current_question_number
