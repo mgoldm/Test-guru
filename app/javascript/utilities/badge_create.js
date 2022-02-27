@@ -2,31 +2,28 @@ document.addEventListener('turbolinks:load', function () {
     const control = document.querySelector('.select')
 
     let ruleSelect = control.querySelector('#badge_rule_type')
-    let categorySelect = control.querySelector('#badge_type_title')
-    let levelSelect = control.querySelector('#test_level')
-    let testSelect = control.querySelector('#badge_param')
+    let paramSelect = control.querySelector('#badge_param')
 
+    let categoryShow = document.querySelector('.show.category')
+    let testShow = document.querySelector('.show.tests')
+
+    categoryShow.style.display = 'none'
+    testShow.style.display = 'none'
 
     if (control) {
-        categorySelect.disabled = true
-        levelSelect.disabled = true
-        testSelect.disabled = true
         ruleSelect.addEventListener('input', selectRule)
     }
 
     function selectRule() {
         if (ruleSelect.value === 'Category') {
-            categorySelect.disabled = false
-            levelSelect.disabled = true
-            testSelect.disabled = true
+            testShow.style.display = 'none'
+            categoryShow.style.display = 'block'
         } else if (ruleSelect.value === 'Level') {
-            categorySelect.disabled = true
-            levelSelect.disabled = false
-            testSelect.disabled = true
+            testShow.style.display = 'none'
+            categoryShow.style.display = 'none'
         } else if (ruleSelect.value === 'First Test') {
-            categorySelect.disabled = true
-            levelSelect.disabled = true
-            testSelect.disabled = false
+            testShow.style.display = 'block'
+            categoryShow.style.display = 'none'
         }
     }
 })

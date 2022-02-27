@@ -4,7 +4,7 @@ class Result < ApplicationRecord
   belongs_to :current_question, class_name: 'Question', optional: true
   before_validation :before_validation_set_next_question
 
-  SUCCESS_RATIO=0.85
+  SUCCESS_RATIO = 0.85
 
   def completed?
     current_question.nil?
@@ -19,7 +19,7 @@ class Result < ApplicationRecord
   end
 
   def successful?(result)
-    check_quality(result)>= SUCCESS_RATIO
+    check_quality(result) >= SUCCESS_RATIO
   end
 
   def current_question_number
@@ -28,13 +28,17 @@ class Result < ApplicationRecord
 
   end
 
+  def give_badge(result)
+    BadgeService.new(result).check_rules
+  end
+
   def check_quality(result)
     (result.correct_questions / test.questions.count.to_f) * 100
   end
 
   private
 
-   def correct_answer?(answer_ids)
+  def correct_answer?(answer_ids)
     correct_answers.ids.sort == answer_ids.to_a.map(&:to_i).sort
   end
 
