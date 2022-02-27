@@ -23,11 +23,12 @@ class BadgeService
 
   def check_rules
     @badges.each do |badge|
-      if badge.rule_type == 'Category'
+      case badge
+      when badge.rule_type == 'Category'
         check_category(badge)
-      elsif badge.rule_type == 'Level'
+      when badge.rule_type == 'Level'
         check_level(badge)
-      elsif badge.rule_type == 'First Test'
+      when badge.rule_type == 'First Test'
         check_first_test(badge)
       end
     end
