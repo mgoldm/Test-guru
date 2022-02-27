@@ -23,13 +23,7 @@ class Result < ApplicationRecord
   end
 
   def current_question_number
-
     test.questions.order(:id).where('id < ?', current_question.id).size + 1
-
-  end
-
-  def give_badge(result)
-    BadgeService.new(result).check_rules
   end
 
   def check_quality(result)

@@ -6,21 +6,19 @@ class ResultController < ApplicationController
 
   def show; end
 
-  def user_result
-    if @result.successful?(@result)
-
-      new_badge = @result.give_badge(@result)
-      if new_badge.success?
-        flash[:notice] = "Поздравляю, вы получили новый значок"
-      end
-    end
-  end
+  def user_result; end
 
   def update
     @result.accept!(params[:answer_ids])
 
     if @result.completed?
       TestsMailer.completed_test(@result).deliver_now
+      new_badge = BadgeService.new(@result).check_rules
+
+      if new_badge.success?
+        flash[:notice] = "Поздравляю, вы получили новый значок"
+      end
+
       redirect_to user_result_result_path(@result)
     else
       render :show
