@@ -13,7 +13,7 @@ class ResultController < ApplicationController
 
     if @result.completed?
       TestsMailer.completed_test(@result).deliver_now
-      new_badge = BadgeService.new(@result).check_rules
+      new_badge = BadgeService.new(@result).call
 
       if new_badge.success?
         flash[:notice] = "Поздравляю, вы получили новый значок"

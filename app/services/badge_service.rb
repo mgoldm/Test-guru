@@ -1,9 +1,15 @@
 class BadgeService
+  RULES = {
+    category: Badges::CategoryRule,
+    level: Badges::LevelRule,
+    firstTest: Badges::FirstTestRule
+
+  }.freeze
+
   def initialize (result)
     @badges = Badge.all
     @result = result
     @user = result.user
-    @test = result.test
     @new_user_badges = []
   end
 
@@ -21,47 +27,18 @@ class BadgeService
     end
   end
 
-  def check_rules
+  def call
     @badges.each do |badge|
-      if badge.rule_type == 'Category'
-        check_category(badge)
-      elsif badge.rule_type == 'Level'
-        check_level(badge)
-      elsif badge.rule_type == 'First Test'
-        check_first_test(badge)
-      end
+      rule = RULES[:"#{badge.rule_type}"].new(badge, @result)
+      @new_user_badges << badge if rule.satisfies?
     end
+    give_badge
     Check.new(@new_user_badges, @user)
-  end
-
-  def check_category(badge)
-    count_tests = Test.where(category_id: badge.param).count
-    count_user_tests = @user.tests.where(category_id: badge.param).count
-
-    if count_user_tests % count_tests == 0
-      give_badge(badge)
-    end
-  end
-
-  def check_level(badge)
-    count_tests = Test.where(level: badge.param).count
-    count_user_tests = @user.tests.where(level: badge.param).count
-
-    if count_tests == count_user_tests
-      give_badge(badge)
-    end
-  end
-
-  def check_first_test(badge)
-    if @user.results.where(test_id: badge.param).count == 1
-      give_badge(badge)
-    end
   end
 
   private
 
-  def give_badge(badge)
-    @user.badges.push(badge)
-    @new_user_badges << badge
+  def give_badge
+    @user.badges.push(@new_user_badges)
   end
 end

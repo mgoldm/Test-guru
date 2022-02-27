@@ -6,6 +6,4 @@ class Badge < ApplicationRecord
   validates :title, presence: true, uniqueness: true
 
   scope :hidden_badges, ->(user) { where.not(id: user.badges) }
-
-  RULES = ['Category', 'Level', 'First Test']
 end

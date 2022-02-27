@@ -8,7 +8,6 @@ class Admin::BadgesController < Admin::BaseController
   end
 
   def create
-    @categories = Category.all
     @badge = Badge.new(badge_params)
 
     if @badge.save

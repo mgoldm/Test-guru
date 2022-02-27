@@ -15,13 +15,13 @@ document.addEventListener('turbolinks:load', function () {
     }
 
     function selectRule() {
-        if (ruleSelect.value === 'Category') {
+        if (ruleSelect.value === 'category') {
             testShow.style.display = 'none'
             categoryShow.style.display = 'block'
-        } else if (ruleSelect.value === 'Level') {
+        } else if (ruleSelect.value === 'level') {
             testShow.style.display = 'none'
             categoryShow.style.display = 'none'
-        } else if (ruleSelect.value === 'First Test') {
+        } else if (ruleSelect.value === 'firstTest') {
             testShow.style.display = 'block'
             categoryShow.style.display = 'none'
         }

@@ -13,7 +13,7 @@
 
     <ul class=" rule">
       <%= form.label :rule_type %><br>
-      <%= form.select :rule_type, Badge::RULES, include_blank: 'Select' %>
+      <%= form.select :rule_type, BadgeService::RULES.keys, include_blank: 'Select' %>
     </ul>
 
     <ul class=" Params">
