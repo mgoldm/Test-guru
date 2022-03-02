@@ -1,9 +1,9 @@
-<h1> The Ruby Test was completed</h1>
+<h1><%= @result.test.title %> was passed</h1>
 
-<%if @result.check_quality(@result)>=0.85 %>
+<% if @result.successful?(@result) %>
   <p>Тест пройден на<a style="color: green"> <%= @result.check_quality(@result) %></a>%</p>
-<%else %>
-  <p>Тест пройден на<a style="color: red"> <%= @result.check_quality(@result)%></a>%</p>
-<%end %>
+<% else %>
+  <p>Тест пройден на<a style="color: red"> <%= @result.check_quality(@result) %></a>%</p>
+<% end %>
 
-<p><%=link_to 'Back', root_path %></p>
+<p><%= link_to 'Back', root_path %></p>

@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   resources :gists, only: :create
 
+  resources :badges, only: :index
+
   resources :tests, only: :index do
     member do
       post :start
@@ -22,6 +24,8 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '/gists', to: "gists#index"
+
+    resources :badges, shallow: true
 
     resources :tests do
       patch :update_inline, on: :member

@@ -1,0 +1,62 @@
+<%= form_with model: [:admin, @badge], local: true do |form| %>
+  <%= render 'shared/errors', resource: @badge %>
+  <div class="select">
+    <ul>
+      <%= form.label :title %><br>
+      <%= form.text_field :title, id: :badge_title %>
+    </ul>
+
+    <ul><p>Название брать с https://github.com/primer/octicons/tree/main/icons </p>
+      <%= form.label :file_name %><br>
+      <%= form.text_field :file_name, id: :badge_file_name %>
+    </ul>
+
+    <ul class=" rule">
+      <%= form.label :rule_type %><br>
+      <%= form.select :rule_type, BadgeService::RULES.keys, include_blank: 'Select' %>
+    </ul>
+
+    <ul class=" Params">
+      <%= form.label :param %><br>
+      <%= form.number_field :param, id: :badge_param %>
+    </ul>
+  </div>
+
+  <div class="show category">
+    Выберете ID Категории
+    <table>
+      <tr>
+        <th>Id</th>
+        <th>Title</th>
+      </tr>
+      <% Category.all.each do |category| %>
+        <tr>
+          <td><%= category.id %></td>
+          <td><%= category.title %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+
+  <div class="show tests">
+    Выберете ID Теста
+    <table>
+      <tr>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Level</th>
+      </tr>
+      <% Test.all.each do |test| %>
+        <tr>
+          <td><%= test.id %></td>
+          <td><%= test.title %></td>
+          <td><%= test.level %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+
+  <p><%= form.submit %></p>
+<% end %>
+
+

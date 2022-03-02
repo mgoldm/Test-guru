@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_04_091809) do
+ActiveRecord::Schema.define(version: 2022_02_24_122437) do
 
   create_table "answers", force: :cascade do |t|
     t.string "title", null: false
@@ -19,6 +19,15 @@ ActiveRecord::Schema.define(version: 2022_02_04_091809) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["question_id"], name: "index_answers_on_question_id"
+  end
+
+  create_table "badges", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "file_name", null: false
+    t.string "rule_type", null: false
+    t.integer "param", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "categories", force: :cascade do |t|
@@ -57,6 +66,12 @@ ActiveRecord::Schema.define(version: 2022_02_04_091809) do
     t.index ["user_id"], name: "index_results_on_user_id"
   end
 
+  create_table "rules", force: :cascade do |t|
+    t.string "rule_type", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "tests", force: :cascade do |t|
     t.string "title", null: false
     t.integer "level", null: false
@@ -66,6 +81,15 @@ ActiveRecord::Schema.define(version: 2022_02_04_091809) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["author_id"], name: "index_tests_on_author_id"
     t.index ["category_id"], name: "index_tests_on_category_id"
+  end
+
+  create_table "user_achievements", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "badge_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["badge_id"], name: "index_user_achievements_on_badge_id"
+    t.index ["user_id"], name: "index_user_achievements_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -103,4 +127,6 @@ ActiveRecord::Schema.define(version: 2022_02_04_091809) do
   add_foreign_key "results", "users"
   add_foreign_key "tests", "categories"
   add_foreign_key "tests", "users", column: "author_id"
+  add_foreign_key "user_achievements", "badges"
+  add_foreign_key "user_achievements", "users"
 end
