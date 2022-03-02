@@ -7,7 +7,6 @@ class BadgeService
   }.freeze
 
   def initialize (result)
-    @badges = Badge.all
     @result = result
     @user = result.user
     @new_user_badges = []
@@ -28,7 +27,7 @@ class BadgeService
   end
 
   def call
-    @badges.each do |badge|
+    Badges.find_each do |badge|
       rule = RULES[:"#{badge.rule_type}"].new(badge, @result)
       @new_user_badges << badge if rule.satisfies?
     end

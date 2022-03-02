@@ -1,11 +1,7 @@
 module Badges
   class CategoryRule < AbstractionsRule
     def satisfies?
-      if user_tests_count % tests_count == 0
-        true
-      else
-        false
-      end
+      (user_tests_count % tests_count).zero?
     end
 
     private
