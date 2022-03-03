@@ -1,6 +1,6 @@
 document.addEventListener('turbolinks:load', function () {
-    let control = document.querySelector('.timer')
-    let testTimer = control.querySelector('.timer-value')
+    const control = document.querySelector('.timer')
+    const testTimer = control.querySelector('.timer-value')
 
     if (testTimer.dataset.timer != 0) {
         setInterval(minusSecond, 1000)
@@ -16,7 +16,7 @@ document.addEventListener('turbolinks:load', function () {
 
     function checkTimer() {
         if (testTimer.dataset.timer == 0) {
-            window.location.href = window.location.href + '/user_result'
+            document.querySelector('form').submit()
         }
     }
 })
