@@ -11,9 +11,7 @@ class Result < ApplicationRecord
   end
 
   def accept!(answer_ids)
-    if correct_answer?(answer_ids)
-      self.correct_questions += 1
-    end
+    self.correct_questions += 1 if correct_answer?(answer_ids)
 
     save!
   end
@@ -30,12 +28,12 @@ class Result < ApplicationRecord
     (result.correct_questions / test.questions.count.to_f) * 100
   end
 
+  private
+
   def test_timer_end?
-    if test.time_remain.present?
-      created_at + test.time_remain * 60 - Time.current <= 0
-    else
-      false
-    end
+    return false if test.time_remain.nil?
+
+    created_at + test.time_remain * 60 - Time.current <= 0
   end
 
   def correct_answer?(answer_ids)
@@ -47,7 +45,7 @@ class Result < ApplicationRecord
   end
 
   def next_question
-    if self.new_record?
+    if new_record?
       test.questions.first
     else
       test.questions.order(:id).where('id > ?', current_question.id).first
