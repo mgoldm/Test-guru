@@ -4,6 +4,12 @@
   <%= content_tag :div, nil, class: 'progress-bar', data: { progress: 100 * (@result.current_question_number - 1) / @result.test.questions.count } %>
 </div>
 
+<% if @result.test.time_remain.present? %>
+  <div class="timer">
+    <%= content_tag :div, @result.test.time_remain, class: 'timer-value', data: { timer: 60 * @result.test.time_remain } %>
+  </div>
+<% end %>
+
 <b>
   <p><%= @result.current_question.title %></p>
   <%= @result.current_question_number %> из <%= @test.questions.count %> вопросов

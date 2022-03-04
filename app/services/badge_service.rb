@@ -27,7 +27,7 @@ class BadgeService
   end
 
   def call
-    Badges.find_each do |badge|
+    Badge.find_each do |badge|
       rule = RULES[:"#{badge.rule_type}"].new(badge, @result)
       @new_user_badges << badge if rule.satisfies?
     end

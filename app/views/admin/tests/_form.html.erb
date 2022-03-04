@@ -16,5 +16,10 @@
     <%= form.collection_select :category_id, Category.all, :id, :title, prompt: true %>
   </ul>
 
+  <ul>
+    <%= form.label :timer %><br>
+    <%= form.number_field :time_remain, id: :test_time_remain %>
+  </ul>
+
   <p><%= form.submit %></p>
 <% end %>
