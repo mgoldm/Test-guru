@@ -30,11 +30,11 @@ class Result < ApplicationRecord
     (result.correct_questions / test.questions.count.to_f) * 100
   end
 
-  private
-
   def test_timer_end?
     if test.time_remain.present?
       created_at + test.time_remain * 60 - Time.current <= 0
+    else
+      false
     end
   end
 
