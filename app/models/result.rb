@@ -7,7 +7,7 @@ class Result < ApplicationRecord
   SUCCESS_RATIO = 0.85
 
   def completed?
-    current_question.nil? || (end_of_time if test.time_remain.present?)
+    current_question.nil? || end_of_time?
   end
 
   def accept!(answer_ids)
@@ -32,8 +32,10 @@ class Result < ApplicationRecord
 
   private
 
-  def end_of_time
-    (created_at + test.time_remain * 60 - Time.current).zero?
+  def end_of_time?
+    if test.time_remain.present?
+      created_at + test.time_remain * 60 - Time.current <= 0
+    end
   end
 
   def correct_answer?(answer_ids)
